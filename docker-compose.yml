@@ -13,5 +13,13 @@ services:
       - db-volume:/var/lib/mysql
       - ./mysql/initdb:/docker-entrypoint-initdb.d
       - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+  app:
+    build: .
+    volumes:
+      - ./app:/app
+    ports:
+      - 3000:3000
+    tty: true
+
 volumes: 
   db-volume:
