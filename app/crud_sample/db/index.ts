@@ -3,7 +3,6 @@ import { Task } from "./model.ts";
 import {
   TaskParams,
   TaskType,
-  DateParams,
   DateParamsValidated,
 } from "../type.ts";
 
