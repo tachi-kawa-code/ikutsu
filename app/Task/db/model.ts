@@ -1,6 +1,6 @@
 import { Model, DATA_TYPES } from "https://deno.land/x/denodb/mod.ts";
 
-export class Task extends Model {
+export class TaskModel extends Model {
   static table = "tasks";
   static timestamps = false;
   static fields = {

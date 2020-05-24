@@ -1,4 +1,4 @@
-export type TaskParams = {
+export type RequestTask = {
   readonly name: string;
   readonly start: DateParams;
   readonly end: DateParams;
@@ -17,7 +17,7 @@ export type DateParamsValidated = {
   readonly date: number;
 };
 
-export type TaskType = {
+export type Task = {
   readonly name: string;
   readonly start: string;
   readonly end: string;

@@ -1,26 +1,10 @@
 import { RouterContext, Status } from "https://deno.land/x/oak/mod.ts";
-import { getById, update } from "../db/mod.ts";
-import { DateParams, TaskParams } from "../type.ts";
-import { taskValidator } from "../taskValidator.ts";
-
-const idRegex = /^[0-9]+$/;
+import { update } from "../../db/mod.ts";
+import { DateParams, RequestTask } from "../../type.ts";
 
 export const putMiddleware = async (context: RouterContext<{ id: string }>) => {
-  const enableParam = context.params && context.params.id.match(idRegex);
-  if (!enableParam) {
-    context.throw(Status.BadRequest, "Bad Request");
-  }
   const targetId = Number(context.params.id);
 
-  const hasData = (await getById(targetId)).length > 0;
-
-  if (!hasData) {
-    context.throw(Status.NotFound, "Not Found");
-  }
-
-  if (!context.request.hasBody) {
-    context.throw(Status.BadRequest, "Bad Request");
-  }
   const body = await context.request.body();
   const params = body.value;
 
@@ -34,19 +18,8 @@ export const putMiddleware = async (context: RouterContext<{ id: string }>) => {
     month: params.end_month,
     date: params.end_date,
   };
-  const taskValid = taskValidator(
-    params.name,
-    start,
-    end,
-    params.target_amount,
-  );
 
-  if (!taskValid.isValid) {
-    context.response.body = JSON.stringify({ error: taskValid.error });
-    context.throw(Status.BadRequest, taskValid.error);
-  }
-
-  const task: TaskParams = {
+  const task: RequestTask = {
     name: params.name,
     start,
     end,

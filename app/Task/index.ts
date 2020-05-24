@@ -4,14 +4,28 @@ import {
   deleteMiddleware,
   putMiddleware,
   postMiddleware,
+  validateRequestBody,
+  enableParamId,
+  existsTaskById,
 } from "./middleware/mod.ts";
 
 const router = new Router();
 router
   .get("/task", getMiddleware)
-  .post("/task", postMiddleware)
-  .put<{ id: string }>("/task/:id", putMiddleware)
-  .delete<{ id: string }>("/task/:id", deleteMiddleware);
+  .post("/task", validateRequestBody, postMiddleware)
+  .put<{ id: string }>(
+    "/task/:id",
+    enableParamId,
+    existsTaskById,
+    validateRequestBody,
+    putMiddleware,
+  )
+  .delete<{ id: string }>(
+    "/task/:id",
+    enableParamId,
+    existsTaskById,
+    deleteMiddleware,
+  );
 
 const app = new Application();
 app.use(router.routes());

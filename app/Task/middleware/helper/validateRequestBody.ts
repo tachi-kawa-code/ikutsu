@@ -1,8 +1,6 @@
 import { RouterContext, Status } from "https://deno.land/x/oak/mod.ts";
-import { DateParams } from "../type.ts";
-import { taskValidator } from "../taskValidator.ts";
-import { TaskParams } from "../type.ts";
-import { create } from "../db/mod.ts";
+import { DateParams } from "../../type.ts";
+import { taskValidator } from "../../taskValidator.ts";
 
 const existsParam = (param: any) => {
   return param.name && param.start_year && param.start_month &&
@@ -10,7 +8,10 @@ const existsParam = (param: any) => {
     param.end_year && param.end_month && param.end_date && param.target_amount;
 };
 
-export const postMiddleware = async (context: RouterContext) => {
+export const validateRequestBody = async (
+  context: RouterContext,
+  next: () => Promise<void>,
+) => {
   if (!context.request.hasBody) {
     context.throw(Status.BadRequest, "Bad Request");
   }
@@ -41,17 +42,6 @@ export const postMiddleware = async (context: RouterContext) => {
   if (!taskValid.isValid) {
     context.response.body = JSON.stringify({ error: taskValid.error });
     context.throw(Status.BadRequest, taskValid.error);
-    return;
   }
-
-  const task: TaskParams = {
-    name: params.name,
-    start,
-    end,
-    target_amount: params.target_amount,
-  };
-
-  await create(task);
-
-  context.response.body = JSON.stringify(body.value);
+  await next();
 };
