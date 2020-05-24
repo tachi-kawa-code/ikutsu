@@ -1,5 +1,5 @@
 import { RouterContext, Status } from "https://deno.land/x/oak/mod.ts";
-import { getById, update } from "../db/index.ts";
+import { getById, update } from "../db/mod.ts";
 import { DateParams, TaskParams } from "../type.ts";
 import { taskValidator } from "../taskValidator.ts";
 

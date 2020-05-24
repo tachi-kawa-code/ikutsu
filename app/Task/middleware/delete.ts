@@ -1,5 +1,5 @@
 import { RouterContext, Status } from "https://deno.land/x/oak/mod.ts";
-import { getById, deleteById } from "../db/index.ts";
+import { getById, deleteById } from "../db/mod.ts";
 
 const idRegex = /^[0-9]+$/;
 

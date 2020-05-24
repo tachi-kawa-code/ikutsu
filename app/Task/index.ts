@@ -4,7 +4,7 @@ import {
   deleteMiddleware,
   putMiddleware,
   postMiddleware,
-} from "./middleware/index.ts";
+} from "./middleware/mod.ts";
 
 const router = new Router();
 router

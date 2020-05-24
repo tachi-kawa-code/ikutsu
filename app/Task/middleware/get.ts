@@ -1,6 +1,6 @@
 import { RouterContext } from "https://deno.land/x/oak/mod.ts";
 import { DateParamsValidated } from "../type.ts";
-import { getByDate } from "../db/index.ts";
+import { getByDate } from "../db/mod.ts";
 
 export const getMiddleware = async (context: RouterContext) => {
   const now = new Date();

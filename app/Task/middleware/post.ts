@@ -2,7 +2,7 @@ import { RouterContext, Status } from "https://deno.land/x/oak/mod.ts";
 import { DateParams } from "../type.ts";
 import { taskValidator } from "../taskValidator.ts";
 import { TaskParams } from "../type.ts";
-import { create } from "../db/index.ts";
+import { create } from "../db/mod.ts";
 
 const existsParam = (param: any) => {
   return param.name && param.start_year && param.start_month &&
