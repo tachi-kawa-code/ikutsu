@@ -23,6 +23,13 @@ services:
     tty: true
     depends_on:
       - db
-
+  frontend:
+    image: node:12.16.3-alpine
+    ports:
+      - 3001:3001
+    volumes:
+      - ./frontend:/frontend
+    working_dir: /frontend
+    tty: true
 volumes: 
   db-volume:
