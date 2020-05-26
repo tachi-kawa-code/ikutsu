@@ -29,10 +29,16 @@ router
 
 const app = new Application();
 app.use(async (context, next) => {
-  context.response.headers.set('Access-Control-Allow-Origin', 'http://localhost:3001')
-  context.response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
-  await next()
-})
+  context.response.headers.set(
+    "Access-Control-Allow-Origin",
+    "http://localhost:3001",
+  );
+  context.response.headers.set(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE",
+  );
+  await next();
+});
 app.use(router.routes());
 app.use(router.allowedMethods());
 
